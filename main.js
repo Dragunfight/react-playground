@@ -1,5 +1,6 @@
-//const helloWorld = React.createElement('h1', {}, 'Hello world!');
+const lastname = "gomas";
+const firstname = "christopher";
 
-const helloWorld = <h1>Hello world!</h1>;
+const fullname = <h1> <span>{firstname[0].toUpperCase() + firstname.slice(1)}</span> <span className="red">{lastname.toUpperCase()}</span> </h1>
 
-ReactDOM.render(helloWorld, document.querySelector('#app'));
+ReactDOM.render(fullname, document.querySelector('#app'));
