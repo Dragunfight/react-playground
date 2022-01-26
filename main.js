@@ -50,8 +50,6 @@ function NameForm() {
         console.log(`Le nom a été soumis: ${name}`);
     }
 
-
-
     return(
     <form onSubmit={handleSubmit}>
         <label>
@@ -66,25 +64,107 @@ function NameForm() {
 
 function EssayForm() {
     
-  
+    const [text, setText] = React.useState('');
+
     const handleChange = (e) => {
         e.preventDefault();
-        setState(e.target.value);
+        setText(e.target.value);
     }
   
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Un essai a été envoyé : ' );
+        console.log(`Le texte a été soumis: ${text}`);
     }
-  
-    
+     
     return (
       <form onSubmit={handleSubmit}>
         <label>
           Essay:
-          <textarea value={this.state.value} onChange={handleChange} />
+          <textarea value={text} onChange={handleChange} />
         </label>
         <input type="submit" value="Envoyer" />
       </form>
     );
   }
+
+  
+function FlavorForm() {
+
+    const [value, setValue] = React.useState('coconut');
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setValue(e.target.value)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(`la valeur sélectionnée est: ${value}`);
+    }
+
+    return(
+        <form onSubmit={handleSubmit}>
+          <label>
+            Choisissez votre parfum favori :
+            <select value={value} onChange={handleChange}>
+              <option value="grapefruit">Pamplemousse</option>
+              <option value="lime">Citron vert</option>
+              <option value="coconut">Noix de coco</option>
+              <option value="mango">Mangue</option>
+            </select>
+          </label>
+          <input type="submit" value="Envoyer" />
+        </form>
+    );
+}
+
+
+
+function Form() {
+    const [inputs, setInputs] = React.useState({
+        name: '',
+        text: '',
+        value: "coconut"
+    });
+
+    
+    const handleChange = ({target: {name, value}}) => {
+        setInputs(state => ({...state, [name]: value}), []);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        for(const name in inputs) {
+            console.log(`${name}: ${inputs[name]}`)
+        }
+    }
+
+
+    return(
+        <form onSubmit={handleSubmit}>
+            <label>
+                Nom :
+                <input type="text" name="name" value={inputs.name} onChange={handleChange} />
+            </label>
+
+            <label>
+                Essay:
+                <textarea name="text" value={inputs.text} onChange={handleChange} />
+            </label>
+
+            <label>
+                Choisissez votre parfum favori :
+                <select name="value" value={inputs.value} onChange={handleChange}>
+                    <option value="grapefruit">Pamplemousse</option>
+                    <option value="lime">Citron vert</option>
+                    <option value="coconut">Noix de coco</option>
+                    <option value="mango">Mangue</option>
+                </select>
+            </label>
+
+            <input type="submit" value="Envoyer" />
+        </form>
+    )
+}
+
+ReactDOM.render(<Form />, document.querySelector('#app'));
